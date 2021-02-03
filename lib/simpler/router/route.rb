@@ -44,7 +44,7 @@ module Simpler
 
       def form_params
         @route_path_elements.each_with_index do |value, index|
-          @params[value] = @request_path_elements[index] if colon?(value)
+          @params[value.delete(':').to_sym] = @request_path_elements[index] if colon?(value)
         end
       end
     end

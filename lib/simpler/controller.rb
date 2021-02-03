@@ -47,7 +47,8 @@ module Simpler
     end
 
     def render_body
-      View.new(@request.env).render(binding)
+      renderer = View.render(@request.env)
+      renderer.new(@request.env).render(binding)
     end
 
     def params
@@ -56,6 +57,7 @@ module Simpler
 
     def render(template)
       @request.env['simpler.template'] = template
+      set_headers('Content-Type', 'text/plain') if template.is_a?(Hash)
     end
   end
 end
